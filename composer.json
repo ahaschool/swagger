@@ -1,0 +1,24 @@
+{
+    "name": "ahaschool/swagger",
+    "description": "ahaschool swagger ui",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "zfm",
+            "email": "zengfuming@ahaschool.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.1.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.5"
+    },
+    "autoload": {
+        "files": ["src/functions.php"],
+        "psr-4": {
+            "Ahaschool\\Swagger\\": "src/"
+        }
+    }
+}
