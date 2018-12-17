@@ -1,18 +1,37 @@
 ## lumen swagger api json lib
 
-### 在composer.json文件中加入
-```
-{
-    "repositories": [
-        {"type": "git", "url": "git@git.util.ahaschool.com:ahamkt/aha-services.git", "reference":"master"}
-    ],
-    "require": {
-        "ahaschool/services": "*"
-    }
-}
+### controller中的写法
+```php
+/**
+ * @swg\path post /api/test/auth
+ * @swg\tags ["课程采购模块"]
+ * @swg\summary 采集活动领取
+ * @swg\req\param {"name": "param", "in": "body", "description": "请求参数"}
+ * @swg\req\schema {"mobile": {"description": "手机号","type": "string"}}
+ * @swg\req\schema {"captcha": {"description": "验证码","type": "string"}}
+ * @swg\res\schema {"mobile": {"description": "手机号","type": "string"}}
+ * @swg\res\schema {"captcha": {"description": "验证码","type": "string"}}
+ */
+/**
+ * @swg\path get /api/test/auth
+ * @swg\tags ["课程采购模块"]
+ * @swg\summary 采集活动领取
+ * @swg\req\param {"name": "param", "in": "body", "description": "请求参数"}
+ * @swg\req\schema {"mobile": {"description": "手机号","type": "string"}}
+ * @swg\req\schema {"captcha": {"description": "验证码","type": "string"}}
+ * @swg\res\schema {"mobile": {"description": "手机号","type": "string"}}
+ * @swg\res\schema {"captcha": {"description": "验证码","type": "string"}}
+ */
 ```
 
-### 在运行composer跟新依赖
-```
-composer install
+### model中的写法
+```php
+/**
+ * @swg\definition AccessToken
+ * @property string $user_id
+ * @property string $client_id
+ * @property string $revoked
+ * @property string $expires_in
+ * @property string $access_token
+ */
 ```

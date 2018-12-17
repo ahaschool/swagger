@@ -41,16 +41,15 @@ class Builder
                 } elseif (stripos($item, '@swg\req\param') !== false) {
                     $item = trim(str_replace('@swg\req\param', '', $item));
                     if (empty($path_content['parameters'])) {
-                        $path_content['parameters'] = json_decode($item, true);
-                    } else {
-                        $path_content['parameters'] = array_merge($path_content['parameters'], json_decode($item, true));
+                        $path_content['parameters'] = [];
                     }
+                    array_push($path_content['parameters'], json_decode($item, true));
                 } elseif (stripos($item, '@swg\req\schema') !== false) {
                     $item = trim(str_replace('@swg\req\schema', '', $item));
-                    if (empty($path_content['parameters']['schema']['properties'])) {
-                        $path_content['parameters']['schema']['properties'] = [];
+                    if (empty($path_content['parameters'][0]['schema']['properties'])) {
+                        $path_content['parameters'][0]['schema']['properties'] = [];
                     }
-                    array_push($path_content['parameters']['schema']['properties'], json_decode($item, true));
+                    array_push($path_content['parameters'][0]['schema']['properties'], json_decode($item, true));
                 } elseif (stripos($item, '@swg\res\schema') !== false) {
                     $item = trim(str_replace('@swg\res\schema', '', $item));
                     if (empty($path_content['responses']['200'])) {
@@ -62,7 +61,7 @@ class Builder
                     array_push($path_content['responses']['200']['schema']['properties'], json_decode($item, true));
                 }
             }
-            $res_paths[] = $path_name;
+            $res_paths[] = json_decode(json_encode($path_name), true);
         }
 
         return $res_paths;
