@@ -3,19 +3,18 @@
 ### controller中的写法
 ```php
 /**
- * @swg\path post /api/test/auth
- * @swg\tags ["课程采购模块"]
- * @swg\summary 采集活动领取
- * @swg\req\param {"name": "param", "in": "body", "description": "请求参数"}
- * @swg\req\schema {"mobile": {"description": "手机号","type": "string"}}
- * @swg\req\schema {"captcha": {"description": "验证码","type": "string"}}
+ * @swg\path get /api/test/get
+ * @swg\tags ["测试分组"]
+ * @swg\summary GET方式获取数据
+ * @swg\req\param {"id": "param", "type": "string", "in": "path", "description": "编号"}
+ * @swg\req\param {"name": "param", "type": "string", "in": "path", "description": "名称"}
  * @swg\res\schema {"mobile": {"description": "手机号","type": "string"}}
  * @swg\res\schema {"captcha": {"description": "验证码","type": "string"}}
  */
 /**
- * @swg\path get /api/test/auth
- * @swg\tags ["课程采购模块"]
- * @swg\summary 采集活动领取
+ * @swg\path post /api/test/post
+ * @swg\tags ["测试分组"]
+ * @swg\summary POST方式获取数据
  * @swg\req\param {"name": "param", "in": "body", "description": "请求参数"}
  * @swg\req\schema {"mobile": {"description": "手机号","type": "string"}}
  * @swg\req\schema {"captcha": {"description": "验证码","type": "string"}}
