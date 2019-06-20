@@ -37,7 +37,10 @@ class Builder
                     $path_content['description'] = $item;
                 } elseif (stripos($item, '@swg\produces') !== false) {
                     $item = trim(str_replace('@swg\produces', '', $item));
-                    $path_content['produces'] = $item;
+                    if (!isset($path_content['produces'])) {
+                        $path_content['produces'] = [];
+                    }
+                    array_push($path_content['produces'], $item);
                 } elseif (stripos($item, '@swg\req\param') !== false) {
                     $item = trim(str_replace('@swg\req\param', '', $item));
                     if (empty($path_content['parameters'])) {
