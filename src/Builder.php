@@ -49,7 +49,7 @@ class Builder
                     if (empty($path_content['parameters'][0]['schema']['properties'])) {
                         $path_content['parameters'][0]['schema']['properties'] = [];
                     }
-                    array_push($path_content['parameters'][0]['schema']['properties'], json_decode($item, true));
+                    $path_content['parameters'][0]['schema']['properties'] = array_merge($path_content['parameters'][0]['schema']['properties'], json_decode($item, true));
                 } elseif (stripos($item, '@swg\res\schema') !== false) {
                     $item = trim(str_replace('@swg\res\schema', '', $item));
                     if (empty($path_content['responses']['200'])) {
@@ -58,10 +58,10 @@ class Builder
                             "schema" => ["properties" => []],
                         ];
                     }
-                    array_push($path_content['responses']['200']['schema']['properties'], json_decode($item, true));
+                    $path_content['responses']['200']['schema']['properties'] = array_merge($path_content['responses']['200']['schema']['properties'], json_decode($item, true));
                 }
             }
-            $res_paths[] = json_decode(json_encode($path_name), true);
+            $res_paths = array_merge($res_paths, json_decode(json_encode($path_name), true));
         }
 
         return $res_paths;

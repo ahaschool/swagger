@@ -19,8 +19,8 @@ class ClassName
     public static function getClassNamesByPath(string $path)
     {
         $classNames = array_merge(
-            glob($path . 'Model/*.php'),
-            glob($path . 'Model/*/*.php'),
+            glob($path . 'Models/*.php'),
+            glob($path . 'Models/*/*.php'),
             glob($path . 'Http/Controllers/*/*Controller.php'),
             glob($path . 'Http/Controllers/*Controller.php')
         );
