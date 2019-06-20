@@ -89,10 +89,10 @@ class Builder
                     $property_arr = explode(' ', $item);
                     $property = $property_arr[2] ?? '';
                     $property = str_replace('$', '', $property);
-                    $properties = [$property => [
+                    $properties = array_merge($properties, [$property => [
                         'type' => $property_arr[1],
                         'description' => $property_arr[3] ?? $property,
-                    ]];
+                    ]]);
                 }
             }
             $def[$def_name] = ['properties' => $properties];
