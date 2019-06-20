@@ -49,8 +49,17 @@ class Builder
                     array_push($path_content['parameters'], json_decode($item, true));
                 } elseif (stripos($item, '@swg\req\schema') !== false) {
                     $item = trim(str_replace('@swg\req\schema', '', $item));
-                    if (empty($path_content['parameters'][0]['schema']['properties'])) {
+                    if (!isset($path_content['parameters'][0]['schema']['properties'])) {
                         $path_content['parameters'][0]['schema']['properties'] = [];
+                    }
+                    if (!isset($path_content['parameters'][0]['name'])) {
+                        $path_content['parameters'][0]['name'] = 'param';
+                    }
+                    if (!isset($path_content['parameters'][0]['in'])) {
+                        $path_content['parameters'][0]['in'] = 'body';
+                    }
+                    if (!isset($path_content['parameters'][0]['description'])) {
+                        $path_content['parameters'][0]['description'] = '请求参数';
                     }
                     $path_content['parameters'][0]['schema']['properties'] = array_merge($path_content['parameters'][0]['schema']['properties'], json_decode($item, true));
                 } elseif (stripos($item, '@swg\res\schema') !== false) {
