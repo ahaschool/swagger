@@ -98,10 +98,26 @@ class Builder
                     $property_arr = explode(' ', $item);
                     $property = $property_arr[2] ?? '';
                     $property = str_replace('$', '', $property);
-                    $properties = array_merge($properties, [$property => [
-                        'type' => $property_arr[1],
-                        'description' => $property_arr[3] ?? $property,
-                    ]]);
+                    if (substr_compare($property_arr[1], '[]', -strlen('[]')) === 0) {//数组格式
+                        $property_arr[1] = str_replace('[]', '', $property_arr[1]);
+                        $properties = array_merge($properties, [$property => [
+                            'type' => 'array',
+                            'items' => ['$ref' => '#/definitions/'.$property_arr[1]],
+                            'description' => $property_arr[3] ?? $property,
+                        ]]);
+                    } elseif (in_array($property_arr[1], ['string', 'integer', 'int', 'boolean', 'double', 'float'])) {
+                        $properties = array_merge($properties, [$property => [
+                            'type' => $property_arr[1],
+                            'description' => $property_arr[3] ?? $property,
+                        ]]);
+                    } else {
+                        $properties = array_merge($properties, [$property => [
+                            'type' => 'object',
+                            '$ref' => '#/definitions/'.$property_arr[1],
+                            'description' => $property_arr[3] ?? $property,
+                        ]]);
+                    }
+
                 }
             }
             $def[$def_name] = ['properties' => $properties];
