@@ -21,7 +21,9 @@ class ClassName
         $classNames = array_merge(
             glob($path . 'Models/*.php'),
             glob($path . 'Models/*/*.php'),
+            glob($path . 'Models/*/*/*.php'),
             glob($path . 'Http/Controllers/*/*Controller.php'),
+            glob($path . 'Http/Controllers/*/*/*Controller.php'),
             glob($path . 'Http/Controllers/*Controller.php')
         );
         foreach ($classNames as &$className) {
