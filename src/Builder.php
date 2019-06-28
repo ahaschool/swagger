@@ -105,6 +105,12 @@ class Builder
                             'items' => ['$ref' => '#/definitions/'.$property_arr[1]],
                             'description' => $property_arr[3] ?? $property,
                         ]]);
+                    } elseif ($property_arr[1] == 'array') {
+                        $properties = array_merge($properties, [$property => [
+                            'type' => 'array',
+                            'items' => ['$ref' => ''],
+                            'description' => $property_arr[3] ?? $property,
+                        ]]);
                     } elseif (in_array($property_arr[1], ['string', 'integer', 'int', 'boolean', 'double', 'float'])) {
                         $properties = array_merge($properties, [$property => [
                             'type' => $property_arr[1],
