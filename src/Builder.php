@@ -105,10 +105,21 @@ class Builder
                             'items' => ['$ref' => '#/definitions/'.$property_arr[1]],
                             'description' => $property_arr[3] ?? $property,
                         ]]);
-                    } elseif ($property_arr[1] == 'array') {
+                    } elseif (substr_compare($property_arr[1], 'array(', 0, 6) === 0 && substr_compare($property_arr[1], ')', -1) === 0) {
+                        // definitions 的array以array(string) 格式编写
+                        $len = strlen($property_arr[1]) - 6 - 1; // 'array(' 长度为 6，'）' 长度为 1
+                        $typeStr = mb_substr($property_arr[1], 6, $len);
+                        $items = ['$ref' => ''];
+                        if ($typeStr != '') {
+                            if (in_array($typeStr, ['string', 'integer', 'int', 'boolean', 'double', 'float'])) {
+                                $items = ['type' => $typeStr];
+                            } else {
+                                $items = ['$ref' => '#/definitions/'.$typeStr];
+                            }
+                        }
                         $properties = array_merge($properties, [$property => [
                             'type' => 'array',
-                            'items' => ['$ref' => ''],
+                            'items' => $items,
                             'description' => $property_arr[3] ?? $property,
                         ]]);
                     } elseif (in_array($property_arr[1], ['string', 'integer', 'int', 'boolean', 'double', 'float'])) {
